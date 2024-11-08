@@ -1,14 +1,36 @@
 package entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userID;
+
+    @Column(unique = true, nullable = false)
     private String username;
+
     private String firstname;
     private String lastname;
 
-    // Constructors, getters, and setters
+    // Default constructor
     public User() {}
 
+    // Constructor uden userID (bruges til nye Users)
+    public User(String username, String firstname, String lastname) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    // Constructor med userID (bruges ved hentning fra DB)
     public User(int userID, String username, String firstname, String lastname) {
         this.userID = userID;
         this.username = username;
@@ -16,6 +38,7 @@ public class User {
         this.lastname = lastname;
     }
 
+    // Getters og Setters
     public int getUserID() { return userID; }
     public void setUserID(int userID) { this.userID = userID; }
     public String getUsername() { return username; }

@@ -1,17 +1,15 @@
 package facades;
 
-import dtos.UserDTO;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManagerFactory;
+
 import dtos.AccountDTO;
 import dtos.LoginDTO;
 import dtos.ReviewDTO;
-import entities.User;
-import entities.Account;
-import entities.Login;
-import entities.Review;
-
-import javax.persistence.EntityManagerFactory;
-import java.util.Arrays;
-import java.util.List;
+import dtos.UserDTO;
 import utils.EMF_Creator;
 
 public class Populator {
@@ -32,19 +30,19 @@ public class Populator {
 
         // Opretter ReviewDTO'er for anmeldelser
         List<ReviewDTO> reviews1 = Arrays.asList(
-            new ReviewDTO(1, 5, "user1", "Amazing experience!", "imgURL1", "Great service and food!")
+            new ReviewDTO(1, 5, new Date(), "user1", "Amazing experience!", "imgURL1", "Great service and food!")
         );
         List<ReviewDTO> reviews2 = Arrays.asList(
-            new ReviewDTO(2, 4, "user2", "Good experience", "imgURL2", "Nice ambiance and friendly staff.")
+            new ReviewDTO(2, 4, new Date(), "user2", "Good experience", "imgURL2", "Nice ambiance and friendly staff.")
         );
         List<ReviewDTO> reviews3 = Arrays.asList(
-            new ReviewDTO(3, 3, "user3", "Average experience", "imgURL3", "Food was okay, but a bit pricey.")
+            new ReviewDTO(3, 3, new Date(), "user3", "Average experience", "imgURL3", "Food was okay, but a bit pricey.")
         );
 
         // Opretter AccountDTO'er og tilføjer dem til facaden
-        AccountDTO account1 = new AccountDTO(1, user1, login1, reviews1);
-        AccountDTO account2 = new AccountDTO(2, user2, login2, reviews2);
-        AccountDTO account3 = new AccountDTO(3, user3, login3, reviews3);
+        AccountDTO account1 = new AccountDTO(1, new Date(), user1, login1, reviews1); // Tilføjer creationDate
+        AccountDTO account2 = new AccountDTO(2, new Date(), user2, login2, reviews2); // Tilføjer creationDate
+        AccountDTO account3 = new AccountDTO(3, new Date(), user3, login3, reviews3); // Tilføjer creationDate
 
         accountFacade.createAccount(account1);
         accountFacade.createAccount(account2);

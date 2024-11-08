@@ -1,5 +1,7 @@
 package rest;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,7 +18,8 @@ import facades.AccountFacade;
 
 @Path("/account")
 public class AccountController {
-    private AccountFacade facade = new AccountFacade();
+    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("pu");
+    private AccountFacade facade = AccountFacade.getFacadeExample(EMF);
 
     @POST
     @Path("/create")
@@ -42,7 +45,7 @@ public class AccountController {
         // Opdater konto
         return Response.ok().build();
     }
-
+ 
     @DELETE
     @Path("/delete/{id}")
     public Response deleteAccount(@PathParam("id") int id) {

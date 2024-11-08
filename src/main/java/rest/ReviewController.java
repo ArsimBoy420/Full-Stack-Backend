@@ -32,7 +32,7 @@ public class ReviewController {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllReviews() {
-        List<ReviewDTO> reviews = facade.getAllReviews(); // Hent alle anmeldelser
+        List<ReviewDTO> reviews = facade.getAllReviews(); // Brug facaden til at hente alle anmeldelser
         return Response.ok(reviews).build();
     }
 

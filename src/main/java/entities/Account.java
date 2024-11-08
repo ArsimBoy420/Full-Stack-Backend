@@ -1,39 +1,57 @@
 package entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountID;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Login login;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     // Constructors, getters, and setters
+
     public Account() {}
 
-    public Account(int accountID, Date creationDate) {
-        this.accountID = accountID;
+    public Account(Date creationDate) {
         this.creationDate = creationDate;
     }
 
     public int getAccountID() { return accountID; }
     public void setAccountID(int accountID) { this.accountID = accountID; }
+
     public Date getCreationDate() { return creationDate; }
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
-    // Business logic methods
-    public void createAccount(User user, Login login, Review review) {
-        // Implementation for creating an account
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public Account getAccount(Login login) {
-        // Implementation for retrieving an account
-        return this;
-    }
+    public Login getLogin() { return login; }
+    public void setLogin(Login login) { this.login = login; }
 
-    public void updateAccount(User user, Login login) {
-        // Implementation for updating an account
-    }
-
-    public void deleteAccount(User user, Login login) {
-        // Implementation for deleting an account
-    }
+    public List<Review> getReviews() { return reviews; }
+    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
 }
